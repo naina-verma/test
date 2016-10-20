@@ -1,0 +1,20 @@
+---
+- hosts: linux_machine
+  become_user: naina
+  tasks:
+  - shell: git stash
+    args:
+      chdir: "{{ ansible_env.HOME }}/almighty-ui"
+  - git: repo=https://github.com/almighty/almighty-ui.git dest="{{ ansible_env.HOME }}/almighty-ui"
+  - git: repo=https://github.com/almighty/almighty-ui.git dest="{{ ansible_env.HOME }}/almighty-ui" update=yes
+  - shell: npm install && npm run reinstall
+    args:
+      chdir: "{{ ansible_env.HOME }}/almighty-ui"
+  - shell: npm start
+    args:
+      chdir: "{{ ansible_env.HOME }}/almighty-ui"
+
+  - shell: npm test
+    args:
+      chdir: "{{ ansible_env.HOME }}/almighty-ui"
+
