@@ -1,0 +1,20 @@
+---
+- hosts: linux_machine
+  become_user: username
+  tasks:
+  - shell: git stash
+    args:
+      chdir: "{{ ansible_env.GOPATH }}/src/github.com/almighty/almighty-core"
+  - git: repo=https://github.com/almighty/almighty-core.git dest="{{ ansible_env.GOPATH }}/src/github.com/almighty/almighty-core"
+  - git: repo=https://github.com/almighty/almighty-core.git dest="{{ ansible_env.GOPATH }}/src/github.com/almighty/almighty-core" update=yes
+  - shell: make
+    args:
+      chdir: "{{ ansible_env.GOPATH }}/src/github.com/almighty/almighty-core"
+  - shell: make deps
+    args:
+      chdir: "{{ ansible_env.GOPATH }}/src/github.com/almighty/almighty-core"
+
+  - shell: make dev &
+    args:
+      chdir: "{{ ansible_env.GOPATH }}/src/github.com/almighty/almighty-core"
+
