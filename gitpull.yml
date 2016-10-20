@@ -1,6 +1,7 @@
 ---
 - hosts: linux_machine
-  become_user: naina
+#Modify it with your username
+  become_user: username 
   tasks:
   - shell: git stash
     args:
